@@ -7,13 +7,14 @@
 #include <memory>   //提供智能指针
 #include <mutex>    //提供线程同步的互斥锁
 
-namespace memoryPool {
+namespace ww_memoryPool {
 #define MEMORY_POOL_NUM 64
 #define SLOT_BASE_SIZE 8
 #define MAX_SLOT_SIZE 512
 
 struct Slot {
-  Slot *next;
+  // Slot *next;
+  std::atomic<Slot *> next; //优化
 };
 
 class MemoryPool {
@@ -30,15 +31,20 @@ private:
   void allocateNewBlock();
   size_t padPointer(char *p, size_t align);
 
+  //使用CAS操作进行无锁入队和出队
+  bool pushFreeList(Slot *slot); //优化
+  Slot *popFreeList();           //优化
+
 private:
   int BlockSize_;    //内存块大小
   int SlotSize_;     //槽大小
   Slot *firstBlock_; //指向内存池管理的首个实际内存块
   Slot *curSlot_;    //指向当前未被使用过的槽
-  Slot *freeList_;   //指向空闲的槽（被使用过后又释放掉的槽）
+  // Slot *freeList_;   //指向空闲的槽（被使用过后又释放掉的槽）
+  std::atomic<Slot *> freeList_; //优化
   Slot *
-      lastSlot_; //作为当前内存块中最后能够存放元素的位置标识（超过该位置需要申请新的内存块）
-  std::mutex mutexForFreeList_; //保证FreeList_在多线程操作中的原子性；
+      lastSlot_; // 作为当前内存块中最后能够存放元素的位置标识（超过该位置需要申请新的内存块）
+  // std::mutex mutexForFreeList_; //保证FreeList_在多线程操作中的原子性；
   std::mutex
       mutexForBlock_; //保证多线程下避免不必要的重复开辟内存导致的浪费行为。
 };
@@ -91,4 +97,4 @@ template <typename T> void deleteElement(T *p) {
   }
 }
 
-} // namespace memoryPool
+} // namespace ww_memoryPool
