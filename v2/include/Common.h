@@ -3,7 +3,7 @@
 #include <atomic>
 #include <cstddef>
 
-namespace ww_memeoryPool {
+namespace ww_memoryPool {
 //对齐数字和大小定义
 constexpr size_t ALIGNMENT = 8;
 constexpr size_t MAX_BYTES = 256 * 1024; // 256KB
@@ -31,4 +31,4 @@ public:
   }
 };
 
-} // namespace ww_memeoryPool
+} // namespace ww_memoryPool
