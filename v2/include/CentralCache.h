@@ -4,19 +4,19 @@
 
 namespace ww_memoryPool {
 
-class CenteralCache {
+class CentralCache {
 
 public:
-  static CenteralCache &geiInstance() {
-    static CenteralCache instance;
+  static CentralCache &getInstance() {
+    static CentralCache instance;
     return instance;
   }
 
-  void *fetchRange(size_t index);
+  void *fetchRange(size_t index, size_t batchNum);
   void returnRange(void *start, size_t size, size_t bytes);
 
 private:
-  CenteralCache() {
+  CentralCache() {
     //初始化所有原子指针为nullptr
     for (auto &ptr : centralFreeList_) {
       ptr.store(nullptr, std::memory_order_relaxed);
