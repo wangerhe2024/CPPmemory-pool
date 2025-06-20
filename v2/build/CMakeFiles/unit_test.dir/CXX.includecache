@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ww/GitCode/github/WorkProjects/CPPmemory-pool/v2/include/Common.h
+array
+-
+atomic
+-
+cstddef
+-
+
+/home/ww/GitCode/github/WorkProjects/CPPmemory-pool/v2/include/MemoryPool.h
+ThreadCache.h
+/home/ww/GitCode/github/WorkProjects/CPPmemory-pool/v2/include/ThreadCache.h
+
+/home/ww/GitCode/github/WorkProjects/CPPmemory-pool/v2/include/ThreadCache.h
+Common.h
+/home/ww/GitCode/github/WorkProjects/CPPmemory-pool/v2/include/Common.h
+
+/home/ww/GitCode/github/WorkProjects/CPPmemory-pool/v2/tests/UnitTest.cpp
+../include/MemoryPool.h
+/home/ww/GitCode/github/WorkProjects/CPPmemory-pool/v2/include/MemoryPool.h
+algorithm
+-
+atomic
+-
+cassert
+-
+cstring
+-
+iostream
+-
+random
+-
+thread
+-
+vector
+-
+
